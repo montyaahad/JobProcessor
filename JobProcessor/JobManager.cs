@@ -14,7 +14,7 @@ namespace JobProcessor
 
         public string GetSortedJobs(string input)
         {
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input.Trim()))
             {
                 return string.Empty;
             }
@@ -39,7 +39,7 @@ namespace JobProcessor
         {
             // TODO: implement sorting
 
-            this._output = String.Join(",", this._jobContainer.Select(j => j.GetName()));
+            this._output = String.Join("", this._jobContainer.Select(j => j.GetName()));
         }
 
         private void CreateJobContainer()
@@ -110,6 +110,7 @@ namespace JobProcessor
 
         private void CheckInput()
         {
+            // TODO : validate input
             //var jobs = this._input.Trim(' ').Split('|');
         }
     }
