@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JobProcessor
+﻿namespace JobProcessor.JobProcessLib
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class JobManager
     {
         private string _input;
@@ -19,20 +17,20 @@ namespace JobProcessor
                 return string.Empty;
             }
 
-            _input = input;
+            this._input = input;
 
-            CheckInput();
+            this.CheckInput();
 
-            ProcessJobs();
+            this.ProcessJobs();
 
-            return _output;
+            return this._output;
         }
 
         private void ProcessJobs()
         {
-            CreateJobContainer();
+            this.CreateJobContainer();
 
-            SequenceJobs();
+            this.SequenceJobs();
         }
 
         private void SequenceJobs()
@@ -48,8 +46,8 @@ namespace JobProcessor
 
             foreach (var job in jobs)
             {
-                var parsedJob = ParseSingleJobInput(job);
-                AddJob(parsedJob);
+                var parsedJob = this.ParseSingleJobInput(job);
+                this.AddJob(parsedJob);
             }
         }
 
@@ -61,17 +59,17 @@ namespace JobProcessor
 
         private void AddJob(SingleJobSequence jobUnit)
         {
-            if (IsJobExists(jobUnit.GetJobName()))
+            if (this.IsJobExists(jobUnit.GetJobName()))
             {
-                var index = GetJobIndex(jobUnit.GetJobName());
-                CreateJobDependency(jobUnit, index);
+                var index = this.GetJobIndex(jobUnit.GetJobName());
+                this.CreateJobDependency(jobUnit, index);
             }
             else
             {
-                CreateJob(jobUnit.GetJobName());
+                this.CreateJob(jobUnit.GetJobName());
 
                 var index = this._jobContainer.Count - 1;
-                CreateJobDependency(jobUnit, index);
+                this.CreateJobDependency(jobUnit, index);
             }
         }
 
@@ -87,9 +85,9 @@ namespace JobProcessor
                 return;
             }
 
-            var indexOdDependency = GetJobIndex(jobUnit.GetDependsOnName());
+            var indexOdDependency = this.GetJobIndex(jobUnit.GetDependsOnName());
 
-            var job = IsJobExists(jobUnit.GetDependsOnName()) ? this._jobContainer[indexOdDependency] : CreateJob(jobUnit.GetDependsOnName());
+            var job = this.IsJobExists(jobUnit.GetDependsOnName()) ? this._jobContainer[indexOdDependency] : this.CreateJob(jobUnit.GetDependsOnName());
 
             this._jobContainer[jobIndex].AddDependency(job);
         }
@@ -98,7 +96,7 @@ namespace JobProcessor
         {
             var newJob = new Job();
             newJob.Initiate(jobName);
-            _jobContainer.Add(newJob);
+            this._jobContainer.Add(newJob);
 
             return newJob;
         }

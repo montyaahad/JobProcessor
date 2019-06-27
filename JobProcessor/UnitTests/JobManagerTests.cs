@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JobProcessor.UnitTests
 {
+    using JobProcessor.JobProcessLib;
+
     [TestClass]
     public class JobManagerTests
     {
@@ -73,7 +73,7 @@ namespace JobProcessor.UnitTests
         [TestMethod]
         [ExpectedException(typeof(Exception),
             "jobs can’t depend on themselves")]
-        public void JobsWithSelfDependencyAsInputShouldReturnException()
+        public void JobsWithSelfDependencyAsInputShouldThrowException()
         {
             string input = "a=>|b=>b|c=>";
 
@@ -84,7 +84,7 @@ namespace JobProcessor.UnitTests
         [TestMethod]
         [ExpectedException(typeof(Exception),
             "jobs can’t have circular dependencies")]
-        public void JobsWithCircularDependencyAsInputShouldReturnException()
+        public void JobsWithCircularDependencyAsInputShouldThrowException()
         {
             string input = "a=>|b=>c|c=>b";
 

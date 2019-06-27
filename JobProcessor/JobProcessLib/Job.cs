@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JobProcessor
+﻿namespace JobProcessor.JobProcessLib
 {
+    using System;
+    using System.Collections.Generic;
+
     public class Job
     {
         private string _name;
