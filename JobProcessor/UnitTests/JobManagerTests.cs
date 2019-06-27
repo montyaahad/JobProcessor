@@ -91,5 +91,16 @@ namespace JobProcessor.UnitTests
             var jobManger = new JobManager();
             var result = jobManger.GetSortedJobs(input);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception),
+            "jobs can’t have circular dependencies")]
+        public void JobsWithComplexCircularDependencyAsInputShouldThrowException()
+        {
+            string input = "a=>b|b=>c|c=>a";
+
+            var jobManger = new JobManager();
+            var result = jobManger.GetSortedJobs(input);
+        }
     }
 }
