@@ -35,9 +35,8 @@
 
         private void SequenceJobs()
         {
-            // TODO: implement sorting
-
-            this._output = String.Join("", this._jobContainer.Select(j => j.GetName()));
+            var jobSequencer = new JobSequencer(this._jobContainer);
+            this._output = jobSequencer.GetSequencedJobs();
         }
 
         private void CreateJobContainer()

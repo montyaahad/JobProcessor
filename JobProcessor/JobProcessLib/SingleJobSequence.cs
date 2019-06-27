@@ -4,9 +4,9 @@
 
     public class SingleJobSequence
     {
-        private string _name;
+        private readonly string _name;
 
-        private string _dependsOn;
+        private readonly string _dependsOn;
 
         public SingleJobSequence(string input)
         {
