@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     public class JobManager
     {
@@ -17,9 +18,9 @@
                 return string.Empty;
             }
 
-            this._input = input;
+            this._input = input.Trim();
 
-            this.CheckInput();
+            this.ValidateInput();
 
             this.ProcessJobs();
 
@@ -105,10 +106,20 @@
             return this._jobContainer.Any(j => j.GetName().Equals(jobName));
         }
 
-        private void CheckInput()
+        private void ValidateInput()
         {
-            // TODO : validate input
-            //var jobs = this._input.Trim(' ').Split('|');
+            // sample valid inputs
+            // a=>
+            // a=>b
+            // a=>|b=>|c=>b
+            string pattern = @"([a-z]{1})(=>)(([a-z]{1}?))?((\|)?(([a-z]{1})(=>)(([a-z]{1}?))?)?)*";
+
+            Match match = Regex.Match(this._input, pattern, RegexOptions.IgnoreCase);
+
+            if (!match.Success)
+            {
+                throw new Exception("invalid input format");
+            }
         }
     }
 }

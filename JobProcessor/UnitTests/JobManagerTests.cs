@@ -33,18 +33,6 @@ namespace JobProcessor.UnitTests
         }
 
         [TestMethod]
-        public void InputValidation()
-        {
-            // TODO
-            string input = "a";
-
-            var jobManger = new JobManager();
-            var result = jobManger.GetSortedJobs(input);
-
-            Assert.AreEqual("a", result);
-        }
-
-        [TestMethod]
         public void JobsWithNoDependencyAsInputShouldReturnAllJobsWithNoSpecificSequence()
         {
             string input = "a=>|b=>";
@@ -98,6 +86,28 @@ namespace JobProcessor.UnitTests
         public void JobsWithComplexCircularDependencyAsInputShouldThrowException()
         {
             string input = "a=>b|b=>c|c=>a";
+
+            var jobManger = new JobManager();
+            var result = jobManger.GetSortedJobs(input);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception),
+            "invalid input format")]
+        public void InvalidInputFormat1ShouldThrowException()
+        {
+            string input = "a";
+
+            var jobManger = new JobManager();
+            var result = jobManger.GetSortedJobs(input);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception),
+            "invalid input format")]
+        public void InvalidInputFormat2ShouldThrowException()
+        {
+            string input = "a=b";
 
             var jobManger = new JobManager();
             var result = jobManger.GetSortedJobs(input);
