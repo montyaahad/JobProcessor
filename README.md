@@ -45,5 +45,33 @@ output : `jobs can’t have circular dependencies`
 
 ## Solving approach
 
+#### JobProcessLib
+Library responsible for processing the jobs.
+- `JobManager` is the class will be used by the client. Client will call the method `public string GetSortedJobs(string input)` which will return the properly sequeced jobs or throw error if any exception occurs. There are some private methods which are self explanatory enough.
+- `SingleJobSequence` class is used for intermediate data structure after parsing the input to have a single jobs' data in a good format.
+- `Job`class is used for having the job in proper format with all its' dependency and used over libraries.
+- `JobSequencer` class has been used as a wrapper class over the main sorting library, so that if need to change the sort library later we can do that with minimal changes. Also the out format logic has been implemented here.
 
+#### SortLib
+Here Topological sort has been used to sort jobs with dependencies. The pseudocode of the algorithm is given below -
 
+```
+foreach job in jobs
+  visitjob(job)
+  
+function visitjob(job j)
+  if j is already visited
+    and if j is in process then there is circular dependency
+  
+  if j is not visited
+    mark j as in process
+    get dependency of j
+    foreach dependency of j
+      visitjob(dependency)
+    
+    mark j as processed
+    add j to the sorted list
+```
+
+#### UnitTests
+There are some test cases in `JobManagerTests` class.
