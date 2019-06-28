@@ -62,13 +62,11 @@ foreach job in jobs
 function visitjob(job j)
   if j is already visited
     and if j is in process then there is circular dependency
-  
   if j is not visited
     mark j as in process
     get dependency of j
     foreach dependency of j
       visitjob(dependency)
-    
     mark j as processed
     add j to the sorted list
 ```
