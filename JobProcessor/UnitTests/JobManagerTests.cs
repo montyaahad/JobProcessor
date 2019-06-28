@@ -74,7 +74,7 @@ namespace JobProcessor.UnitTests
             "jobs can’t have circular dependencies")]
         public void JobsWithCircularDependencyAsInputShouldThrowException()
         {
-            string input = "a=>|b=>c|c=>b";
+            string input = "a => | b => c | c => b";
 
             var jobManger = new JobManager();
             var result = jobManger.GetSortedJobs(input);
