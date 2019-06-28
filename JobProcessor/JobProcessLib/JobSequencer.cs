@@ -17,7 +17,7 @@
 
         public string GetSequencedJobs()
         {
-            var listSortedJobs = new Sorter().GetSOrtedJobs(this._jobContainer);
+            var listSortedJobs = new TopologicalSorter().GetSOrtedJobs(this._jobContainer);
 
             // output sequence logic
             var sequencedJobs = String.Join("", listSortedJobs.Select(j => j.GetName()));
